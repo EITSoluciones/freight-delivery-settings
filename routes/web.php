@@ -7,6 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/clients/create', [ClientController::class, 'create'])->name('clients.create');
-Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
+Route::resource('clients', ClientController::class)->except([
+    'show'
+]);
 Route::get('/api/clients/{activation_code}', [ClientController::class, 'getByActivationCode']);
