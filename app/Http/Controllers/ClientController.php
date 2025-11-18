@@ -6,9 +6,19 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ClientController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $clients = Client::paginate(10);
+        return view('clients.index', compact('clients'));
+    }
+
     /**
      * Show the form for creating a new client.
      *
@@ -50,8 +60,50 @@ class ClientController extends Controller
             'activation_code' => Str::random(32),
         ]);
 
-        return redirect()->route('clients.create')->with('success', 'Client created successfully! Activation code: ' . $client->activation_code);
+        return redirect()->route('clients.index')->with('success', 'Client created successfully!');
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Client $client)
+    {
+        return view('clients.edit', compact('client'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Client $client)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => ['required', 'email', Rule::unique('clients')->ignore($client->id)],
+            'address' => 'required|string|max:255',
+            'expiration_date' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('clients.edit', $client)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $client->update($request->all());
+
+        return redirect()->route('clients.index')->with('success', 'Client updated successfully!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Client $client)
+    {
+        $client->delete();
+        return redirect()->route('clients.index')->with('success', 'Client deleted successfully!');
+    }
+
 
     /**
      * Get client by activation code.
