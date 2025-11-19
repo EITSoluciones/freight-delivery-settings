@@ -85,7 +85,11 @@
                             datepicker-orientation="top"
                             class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 shadow-xs placeholder:text-body"
                             placeholder="Select date"
-                            value="{{ old('expiration_date', $client->expiration_date ?? '') }}">
+                            value="{{ old('expiration_date', $client ? \Carbon\Carbon::parse($client->expiration_date)->format('d/m/Y') : '') }}">
+
+
+
+
                     </div>
                 </div>
 

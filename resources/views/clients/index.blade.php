@@ -40,11 +40,14 @@
                         <th class="px-6 py-3 font-medium">
                             Expiration Date
                         </th>
+                        <th class="px-6 py-3 font-medium">
+                            Server url
+                        </th>
                         <th class="px-5 py-3"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($clients as $client)
+                    @forelse ($clients as $client)
                         <tr class="border-b border-gray-200 bg-white hover:bg-neutral-100 text-gray-700">
                             <td class="px-5 py-5">
                                 <p class=" whitespace-no-wrap">{{ $client->name }}</p>
@@ -56,7 +59,12 @@
                                 <p class=" whitespace-no-wrap">{{ $client->phone }}</p>
                             </td>
                             <td class="px-5 py-5 ">
-                                <p class=" whitespace-no-wrap">{{ $client->expiration_date }}</p>
+                                <p class=" whitespace-no-wrap">
+                                    {{ \Carbon\Carbon::parse($client->expiration_date)->format('d-m-Y') }}</p>
+                            </td>
+
+                            <td class="px-5 py-5 ">
+                                <p class=" whitespace-no-wrap">{{ $client->url }}</p>
                             </td>
 
                             <!-- options -->
@@ -71,8 +79,7 @@
                                             d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
                                     </svg>
                                 </a>
-                                <button type="button"
-                                    data-modal-target="client-modal-edit-{{ $client->id }}"
+                                <button type="button" data-modal-target="client-modal-edit-{{ $client->id }}"
                                     data-modal-toggle="client-modal-edit-{{ $client->id }}"
                                     class="text-indigo-600 hover:text-indigo-900 mr-4 btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -97,7 +104,14 @@
                             </td>
                         </tr>
                         <x-client-modal :client="$client" />
-                    @endforeach
+
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-5 py-5 text-center text-gray-500">
+                                No information available
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{-- <div class="px-5 py-5 flex flex-col xs:flex-row items-center xs:justify-between">
