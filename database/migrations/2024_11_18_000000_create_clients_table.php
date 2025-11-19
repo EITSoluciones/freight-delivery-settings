@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->date('expiration_date');
             $table->string('activation_code')->unique();
+            $table->string('url');
             $table->timestamps();
         });
     }

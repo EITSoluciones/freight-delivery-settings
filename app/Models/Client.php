@@ -21,5 +21,6 @@ class Client extends Model
         'address',
         'expiration_date',
         'activation_code',
+        'url'
     ];
 }
