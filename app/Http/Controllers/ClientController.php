@@ -20,16 +20,6 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the form for creating a new client.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('clients.create');
-    }
-
-    /**
      * Store a newly created client in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -43,32 +33,26 @@ class ClientController extends Controller
             'email' => 'required|email|unique:clients,email',
             'address' => 'required|string|max:255',
             'expiration_date' => 'required|date',
+            'url' => 'required|url',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('clients.create')
+            return redirect()->route('clients.index')
                 ->withErrors($validator)
                 ->withInput();
         }
 
-        $client = Client::create([
+        Client::create([
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
             'address' => $request->input('address'),
             'expiration_date' => $request->input('expiration_date'),
             'activation_code' => Str::random(32),
+            'url' => $request->input('url'),
         ]);
 
         return redirect()->route('clients.index')->with('success', 'Client created successfully!');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Client $client)
-    {
-        return view('clients.edit', compact('client'));
     }
 
     /**
@@ -82,10 +66,11 @@ class ClientController extends Controller
             'email' => ['required', 'email', Rule::unique('clients')->ignore($client->id)],
             'address' => 'required|string|max:255',
             'expiration_date' => 'required|date',
+            'url' => 'required|url',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('clients.edit', $client)
+            return redirect()->route('clients.index')
                 ->withErrors($validator)
                 ->withInput();
         }
