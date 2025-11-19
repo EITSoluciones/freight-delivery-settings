@@ -27,6 +27,8 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
@@ -42,12 +44,14 @@ class ClientController extends Controller
                 ->withInput();
         }
 
+        $expirationDate = date('Y-m-d', strtotime($request->expiration_date));
+
         Client::create([
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
             'address' => $request->input('address'),
-            'expiration_date' => $request->input('expiration_date'),
+            'expiration_date' => $expirationDate,
             'activation_code' => Str::random(32),
             'url' => $request->input('url'),
         ]);
