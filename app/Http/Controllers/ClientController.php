@@ -27,8 +27,6 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
@@ -41,17 +39,16 @@ class ClientController extends Controller
         if ($validator->fails()) {
             return redirect()->route('clients.index')
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput()
+                ->with('danger', 'There was a problem creating the client. Please check the form.');
         }
-
-        $expirationDate = date('Y-m-d', strtotime($request->expiration_date));
 
         Client::create([
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
             'address' => $request->input('address'),
-            'expiration_date' => $expirationDate,
+            'expiration_date' => $request->input('expiration_date'),
             'activation_code' => Str::random(32),
             'url' => $request->input('url'),
         ]);
@@ -76,7 +73,8 @@ class ClientController extends Controller
         if ($validator->fails()) {
             return redirect()->route('clients.index')
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput()
+                ->with('danger', 'There was a problem updating the client. Please check the form.');
         }
 
         $client->update($request->all());
@@ -90,7 +88,7 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         $client->delete();
-        return redirect()->route('clients.index')->with('success', 'Client deleted successfully!');
+        return redirect()->route('clients.index')->with('danger', 'Client has been deleted.');
     }
 
 
