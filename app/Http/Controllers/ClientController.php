@@ -45,10 +45,11 @@ class ClientController extends Controller
             return redirect()->route('clients.index')
                 ->withErrors($validator)
                 ->withInput()
-                ->with('danger', 'There was a problem creating the client. Please check the form.');
+                ->with('danger', implode(' ', $validator->errors()->all()));
         }
 
         $expirationDate = Carbon::createFromFormat('d/m/Y', $request->expiration_date)->format('Y-m-d');
+        $activationCode = $this->generateUniqueActivationCode();
 
         // dd($request->input('url'));
 
@@ -58,7 +59,7 @@ class ClientController extends Controller
             'email' => $request->input('email'),
             'address' => $request->input('address'),
             'expiration_date' => $expirationDate,
-            'activation_code' => Str::random(32),
+            'activation_code' => $activationCode,
             'url' => $request->input('url'),
         ]);
 
@@ -83,7 +84,7 @@ class ClientController extends Controller
             return redirect()->route('clients.index')
                 ->withErrors($validator)
                 ->withInput()
-                ->with('danger', 'There was a problem updating the client. Please check the form.');
+                ->with('danger', implode(' ', $validator->errors()->all()));
         }
 
         $expirationDate = Carbon::createFromFormat('d/m/Y', $request->expiration_date)->format('Y-m-d');
@@ -106,7 +107,7 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         $client->delete();
-        return redirect()->route('clients.index')->with('danger', 'Client has been deleted.');
+        return redirect()->route('clients.index')->with('success', 'Client has been deleted.');
     }
 
 
@@ -129,5 +130,15 @@ class ClientController extends Controller
         }
 
         return response()->json($client);
+    }
+
+
+    private function generateUniqueActivationCode()
+    {
+        do {
+            $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        } while (Client::where('activation_code', $code)->exists());
+
+        return $code;
     }
 }

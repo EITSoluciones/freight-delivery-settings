@@ -40,14 +40,14 @@
                         <label for="name-{{ $modalId }}" class="block mb-2.5 text-sm font-medium text-heading">Name</label>
                         <input type="text" name="name" id="name-{{ $modalId }}"
                             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                            placeholder="Client name" value="{{ old('name', $client->name ?? '') }}" required>
+                            placeholder="Name" value="{{ old('name', $client->name ?? '') }}" required>
                     </div>
 
                     <div class="mb-4">
                         <label for="phone-{{ $modalId }}" class="block mb-2.5 text-sm font-medium text-heading">Phone</label>
                         <input type="text" name="phone" id="phone-{{ $modalId }}" maxlength="10"
                             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                            placeholder="Client phone" value="{{ old('phone', $client->phone ?? '') }}" required>
+                            placeholder="Phone" value="{{ old('phone', $client->phone ?? '') }}" required>
                     </div>
                 </div>
 
@@ -64,7 +64,7 @@
                             class="block mb-2.5 text-sm font-medium text-heading">Address</label>
                         <input type="text" name="address" id="address-{{ $modalId }}"
                             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                            placeholder="Client address" value="{{ old('address', $client->address ?? '') }}"
+                            placeholder="Address" value="{{ old('address', $client->address ?? '') }}"
                             required>
                     </div>
                 </div>
@@ -98,11 +98,11 @@
                         url</label>
                     <input type="text" name="url" id="url-{{ $modalId }}"
                         class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                        placeholder="Client server url" value="{{ old('url', $client->url ?? '') }}" required>
+                        placeholder="Server url" value="{{ old('url', $client->url ?? '') }}" required>
                 </div>
 
                 <button type="submit"
-                    class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none w-full mb-3">
+                    class="text-white bg-secondary box-border border border-transparent shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none w-full mb-3">
                     {{ $isEdit ? 'Update ' : 'Create ' }}
                 </button>
             </form>

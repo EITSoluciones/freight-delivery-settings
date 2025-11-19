@@ -19,7 +19,7 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Clients</h1>
             <button type="button" data-modal-target="client-modal-create" data-modal-toggle="client-modal-create"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                class="bg-primary text-white font-bold py-2 px-4 rounded cursor-pointer">
                 Create
             </button>
         </div>
@@ -38,10 +38,14 @@
                             Phone
                         </th>
                         <th class="px-6 py-3 font-medium">
-                            Expiration Date
+                            Expiration date
                         </th>
                         <th class="px-6 py-3 font-medium">
                             Server url
+                        </th>
+
+                        <th class="px-6 py-3 font-medium">
+                            Activation code
                         </th>
                         <th class="px-5 py-3"></th>
                     </tr>
@@ -67,9 +71,13 @@
                                 <p class=" whitespace-no-wrap">{{ $client->url }}</p>
                             </td>
 
+                            <td class="px-5 py-5 ">
+                                <p class=" whitespace-no-wrap">{{ $client->activation_code }}</p>
+                            </td>
+
                             <!-- options -->
                             <td class="px-5 py-5 flex gap-x-2">
-                                <button onclick="showActivationCode('{{ $client->activation_code }}')"
+                                {{-- <button onclick="showActivationCode('{{ $client->activation_code }}')"
                                     class="text-indigo-600 hover:text-indigo-900 mr-4 btn cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -78,10 +86,10 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
                                     </svg>
-                                </button>
+                                </button> --}}
                                 <button type="button" data-modal-target="client-modal-edit-{{ $client->id }}"
                                     data-modal-toggle="client-modal-edit-{{ $client->id }}"
-                                    class="text-indigo-600 hover:text-indigo-900 mr-4 btn cursor-pointer">
+                                    class="text-secondary  mr-4 btn cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -89,8 +97,9 @@
                                     </svg>
                                 </button>
 
-                                <button type="button" class="text-red-600 hover:text-red-900 cursor-pointer"
-                                    data-modal-target="delete-client-modal" data-modal-toggle="delete-client-modal">
+                                <button type="button" class="text-danger-strong cursor-pointer"
+                                    data-modal-target="delete-client-modal-{{ $client->id }}"
+                                    data-modal-toggle="delete-client-modal-{{ $client->id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -100,6 +109,7 @@
                             </td>
                         </tr>
                         <x-client-modal :client="$client" />
+                        <x-delete-client-modal :client="$client" />
 
                     @empty
                         <tr>
@@ -116,45 +126,6 @@
         </div>
     </div>
     <x-client-modal />
-
-
-    <div id="delete-client-modal" tabindex="-1"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-md max-h-full">
-            <div class="relative bg-neutral-primary-soft border border-default rounded-base shadow-sm p-4 md:p-6">
-                <button type="button"
-                    class="absolute top-3 end-2.5 text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
-                    data-modal-hide="delete-client-modal">
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18 17.94 6M18 18 6.06 6" />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-                <div class="p-4 md:p-5 text-center">
-                    <svg class="mx-auto mb-4 text-fg-disabled w-12 h-12" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                        viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                    <h3 class="mb-6 text-body">Are you sure you want to delete this client?</h3>
-                    <div class="flex items-center space-x-4 justify-center">
-                        <button data-modal-hide="popup-modal" type="button"
-                            class="text-white bg-danger box-border border border-transparent hover:bg-danger-strong focus:ring-4 focus:ring-danger-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-                            Yes, I'm sure
-                        </button>
-                        <button data-modal-hide="popup-modal" type="button"
-                            class="text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">No,
-                            cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
 </body>
 
