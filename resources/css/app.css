@@ -9,6 +9,18 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
 @source "../../node_modules/flowbite";
+
+
+
+@theme {
+    --color-primary: #052659;
+    /* Azul */
+    --color-secondary: #021024;
+    /* Amarillo */
+    --color-danger: #DC2626;
+    /* Rojo */
+}

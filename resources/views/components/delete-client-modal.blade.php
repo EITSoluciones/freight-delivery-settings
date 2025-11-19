@@ -35,7 +35,7 @@
                     @method('DELETE')
                     <div class="flex items-center space-x-4 justify-center">
                         <button data-modal-hide="{{ $modalId }}" type="submit"
-                            class="text-white bg-danger box-border border border-transparent hover:bg-danger-strong focus:ring-4 focus:ring-danger-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                            class="text-white bg-danger-strong box-border border border-transparent  focus:ring-4 focus:ring-danger-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
                             Yes, I'm sure
                         </button>
                         <button data-modal-hide="{{ $modalId }}" type="button"

@@ -19,7 +19,7 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Clients</h1>
             <button type="button" data-modal-target="client-modal-create" data-modal-toggle="client-modal-create"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                class="bg-primary text-white font-bold py-2 px-4 rounded cursor-pointer">
                 Create
             </button>
         </div>
@@ -38,10 +38,14 @@
                             Phone
                         </th>
                         <th class="px-6 py-3 font-medium">
-                            Expiration Date
+                            Expiration date
                         </th>
                         <th class="px-6 py-3 font-medium">
                             Server url
+                        </th>
+
+                        <th class="px-6 py-3 font-medium">
+                            Activation code
                         </th>
                         <th class="px-5 py-3"></th>
                     </tr>
@@ -67,9 +71,13 @@
                                 <p class=" whitespace-no-wrap">{{ $client->url }}</p>
                             </td>
 
+                            <td class="px-5 py-5 ">
+                                <p class=" whitespace-no-wrap">{{ $client->activation_code }}</p>
+                            </td>
+
                             <!-- options -->
                             <td class="px-5 py-5 flex gap-x-2">
-                                <button onclick="showActivationCode('{{ $client->activation_code }}')"
+                                {{-- <button onclick="showActivationCode('{{ $client->activation_code }}')"
                                     class="text-indigo-600 hover:text-indigo-900 mr-4 btn cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -78,10 +86,10 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
                                     </svg>
-                                </button>
+                                </button> --}}
                                 <button type="button" data-modal-target="client-modal-edit-{{ $client->id }}"
                                     data-modal-toggle="client-modal-edit-{{ $client->id }}"
-                                    class="text-indigo-600 hover:text-indigo-900 mr-4 btn cursor-pointer">
+                                    class="text-secondary  mr-4 btn cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -89,7 +97,7 @@
                                     </svg>
                                 </button>
 
-                                <button type="button" class="text-red-600 hover:text-red-900 cursor-pointer"
+                                <button type="button" class="text-danger-strong cursor-pointer"
                                     data-modal-target="delete-client-modal-{{ $client->id }}"
                                     data-modal-toggle="delete-client-modal-{{ $client->id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
