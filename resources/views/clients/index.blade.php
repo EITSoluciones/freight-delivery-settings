@@ -90,8 +90,8 @@
                                 </button>
 
                                 <button type="button" class="text-red-600 hover:text-red-900 cursor-pointer"
-                                    data-modal-target="delete-client-modal" data-modal-toggle="delete-client-modal"
-                                    data-client-id="{{ $client->id }}">
+                                    data-modal-target="delete-client-modal-{{ $client->id }}"
+                                    data-modal-toggle="delete-client-modal-{{ $client->id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -101,6 +101,7 @@
                             </td>
                         </tr>
                         <x-client-modal :client="$client" />
+                        <x-delete-client-modal :client="$client" />
 
                     @empty
                         <tr>
@@ -117,24 +118,6 @@
         </div>
     </div>
     <x-client-modal />
-    <x-delete-client-modal />
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const deleteButtons = document.querySelectorAll('[data-modal-toggle="delete-client-modal"]');
-            const deleteClientModal = document.getElementById('delete-client-modal');
-            const deleteClientForm = document.getElementById('deleteClientForm');
-
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const clientId = this.dataset.clientId;
-                    const action = "{{ route('clients.destroy', ['client' => ':id']) }}".replace(
-                        ':id', clientId);
-                    deleteClientForm.setAttribute('action', action);
-                });
-            });
-        });
-    </script>
 
 </body>
 
