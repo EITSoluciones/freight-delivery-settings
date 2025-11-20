@@ -37,14 +37,16 @@
 
                 <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                     <div class="mb-4">
-                        <label for="name-{{ $modalId }}" class="block mb-2.5 text-sm font-medium text-heading">Name</label>
+                        <label for="name-{{ $modalId }}"
+                            class="block mb-2.5 text-sm font-medium text-heading">Name</label>
                         <input type="text" name="name" id="name-{{ $modalId }}"
                             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                             placeholder="Name" value="{{ old('name', $client->name ?? '') }}" required>
                     </div>
 
                     <div class="mb-4">
-                        <label for="phone-{{ $modalId }}" class="block mb-2.5 text-sm font-medium text-heading">Phone</label>
+                        <label for="phone-{{ $modalId }}"
+                            class="block mb-2.5 text-sm font-medium text-heading">Phone</label>
                         <input type="text" name="phone" id="phone-{{ $modalId }}" maxlength="10"
                             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                             placeholder="Phone" value="{{ old('phone', $client->phone ?? '') }}" required>
@@ -53,10 +55,12 @@
 
                 <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
                     <div class="mb-4">
-                        <label for="email-{{ $modalId }}" class="block mb-2.5 text-sm font-medium text-heading">Email</label>
+                        <label for="email-{{ $modalId }}"
+                            class="block mb-2.5 text-sm font-medium text-heading">Email</label>
                         <input type="email" name="email" id="email-{{ $modalId }}"
                             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                            placeholder="example@company.com" value="{{ old('email', $client->email ?? '') }}" required>
+                            placeholder="example@company.com" value="{{ old('email', $client->email ?? '') }}"
+                            required>
                     </div>
 
                     <div class="mb-4">
@@ -64,8 +68,7 @@
                             class="block mb-2.5 text-sm font-medium text-heading">Address</label>
                         <input type="text" name="address" id="address-{{ $modalId }}"
                             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                            placeholder="Address" value="{{ old('address', $client->address ?? '') }}"
-                            required>
+                            placeholder="Address" value="{{ old('address', $client->address ?? '') }}" required>
                     </div>
                 </div>
 
@@ -81,8 +84,8 @@
                                     d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
                             </svg>
                         </div>
-                        <input datepicker name="expiration_date" id="expiration_date-{{ $modalId }}" type="text"
-                            datepicker-orientation="top"
+                        <input datepicker name="expiration_date" id="expiration_date-{{ $modalId }}"
+                            type="text" datepicker-format="dd/mm/yyyy" datepicker-orientation="top"
                             class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 shadow-xs placeholder:text-body"
                             placeholder="Select date"
                             value="{{ old('expiration_date', $client ? \Carbon\Carbon::parse($client->expiration_date)->format('d/m/Y') : '') }}">

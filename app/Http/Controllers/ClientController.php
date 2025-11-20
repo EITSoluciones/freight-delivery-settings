@@ -37,7 +37,7 @@ class ClientController extends Controller
             'phone' => 'required|string|max:20',
             'email' => 'required|email|unique:clients,email',
             'address' => 'required|string|max:255',
-            'expiration_date' => 'required|date',
+            'expiration_date' => 'required|date_format:d/m/Y',
             'url' => 'required|url',
         ]);
 
@@ -76,7 +76,7 @@ class ClientController extends Controller
             'phone' => 'required|string|max:20',
             'email' => ['required', 'email', Rule::unique('clients')->ignore($client->id)],
             'address' => 'required|string|max:255',
-            'expiration_date' => 'required|date',
+           'expiration_date' => 'required|date_format:d/m/Y',
             'url' => 'required|url',
         ]);
 
@@ -87,7 +87,13 @@ class ClientController extends Controller
                 ->with('danger', implode(' ', $validator->errors()->all()));
         }
 
+        // dd($request->expiration_date);
+
         $expirationDate = Carbon::createFromFormat('d/m/Y', $request->expiration_date)->format('Y-m-d');
+
+        // dd($expirationDate);
+
+
 
         $client->update([
             'name' => $request->name,
@@ -129,7 +135,21 @@ class ClientController extends Controller
             return response()->json(['error' => 'Activation code expired'], 403);
         }
 
-        return response()->json($client);
+
+
+        return response()->json([
+            "message" => "Client found successfully",
+            "data" => $client->only([
+                'id',
+                'name',
+                'phone',
+                'email',
+                'address',
+                'expiration_date',
+                'activation_code',
+                'url',
+            ])
+        ]);
     }
 
 
