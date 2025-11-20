@@ -17,4 +17,6 @@ Route::middleware(['auth'])->group(function () {
         'show'
     ]);
 });
+
+
 Route::get('/api/clients/{activation_code}', [ClientController::class, 'getByActivationCode']);

@@ -129,7 +129,21 @@ class ClientController extends Controller
             return response()->json(['error' => 'Activation code expired'], 403);
         }
 
-        return response()->json($client);
+
+
+        return response()->json([
+            "message" => "Client found successfully",
+            "data" => $client->only([
+                'id',
+                'name',
+                'phone',
+                'email',
+                'address',
+                'expiration_date',
+                'activation_code',
+                'url',
+            ])
+        ]);
     }
 
 
