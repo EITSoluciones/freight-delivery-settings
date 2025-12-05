@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('activation_code')->unique();
             $table->string('url');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
