@@ -18,10 +18,19 @@
     <div class="container px-5 mx-auto mt-10 ">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Clients</h1>
-            <button type="button" data-modal-target="client-modal-create" data-modal-toggle="client-modal-create"
-                class="bg-primary text-white font-bold py-2 px-4 rounded cursor-pointer">
-                Create
-            </button>
+            <div class="flex items-center gap-x-2">
+                <button type="button" data-modal-target="client-modal-create" data-modal-toggle="client-modal-create"
+                    class="bg-primary text-white font-bold py-2 px-4 rounded cursor-pointer">
+                    Create
+                </button>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded cursor-pointer hover:bg-gray-300">
+                        Logout
+                    </button>
+                </form>
+            </div>
         </div>
         <div class="overflow-x-auto bg-white shadow-md rounded ">
             <table class="min-w-full ">
