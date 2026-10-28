@@ -1,0 +1,12 @@
+{
+	frankenphp
+}
+
+# Con SERVER_NAME=midominio.com Caddy saca el certificado HTTPS solo (Let's Encrypt).
+# Con SERVER_NAME=:80 sirve por HTTP sin certificado (útil para probar por IP).
+
+{$SERVER_NAME::80} {
+	root * /app/public
+	encode zstd br gzip
+	php_server
+}
